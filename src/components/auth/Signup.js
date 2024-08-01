@@ -11,16 +11,20 @@ import {
 } from "../ui/card";
 import { useState } from "react";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { hideLoading, showLoading } from "../redux/features/alertSlice";
 
 const Signup = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      dispatch(showLoading())
       const response = await axios.post(
         "http://192.168.100.24:4000/api/users/register",
         {
@@ -29,18 +33,21 @@ const Signup = () => {
           password,
         }
       );
+      dispatch(hideLoading())
       if (response.data.success) {
         console.log("Working Properly");
         navigate("/login");
       }
     } catch (error) {
+      dispatch(hideLoading())
       console.log({ message: error });
     }
   };
+
   return (
     <div>
       <form
-        onClick={handleSubmit}
+        onSubmit={handleSubmit}
         className="flex h-screen items-center justify-center"
       >
         <Card className="w-full max-w-sm">
@@ -90,7 +97,7 @@ const Signup = () => {
             </div>
             <div className="mt-4 text-center text-sm">
               Already have an account?{" "}
-              <Link href="#" className="underline">
+              <Link to="/login" className="underline">
                 Login
               </Link>
             </div>
