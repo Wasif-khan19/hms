@@ -1,4 +1,6 @@
+import axios from "axios";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "../ui/button";
 import {
   Card,
@@ -10,10 +12,6 @@ import {
 } from "../ui/card";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { useDispatch } from "react-redux";
-import { hideLoading, showLoading } from "../redux/features/alertSlice";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -21,13 +19,12 @@ const Login = () => {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
+    setError("");
     try {
-      dispatch(showLoading());
       const response = await axios.post(
         "http://192.168.100.24:4000/api/users/login",
         {
@@ -35,17 +32,16 @@ const Login = () => {
           password,
         }
       );
-      dispatch(hideLoading());
-      
+
       if (response.data.success) {
         localStorage.setItem("token", response.data.authToken);
         navigate("/");
+        window.location.reload();
       } else {
         setError("Incorrect password. Please try again.");
       }
     } catch (error) {
       setError("Invalid credentials. Please check your email and password.");
-      dispatch(hideLoading());
     } finally {
       setIsLoading(false);
     }

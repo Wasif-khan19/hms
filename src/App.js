@@ -2,16 +2,17 @@ import { useSelector } from "react-redux";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import Login from "./components/auth/Login";
 import Signup from "./components/auth/Signup";
+import Falto from "./components/pages/falto";
 import Home from "./components/pages/Home";
 import Protectedroutes from "./components/routes/Protectedroutes";
 import Publicroute from "./components/routes/Publicroute";
 import Spinner from "./components/ui/Spinner";
-import Falto from "./components/pages/falto";
 
 const App = () => {
   const { loading } = useSelector((state) => state.alert);
 
   return (
+    
     <Router>
       {loading ? (
         <Spinner />
@@ -26,6 +27,7 @@ const App = () => {
       )}
     </Router>
   );
+
 };
 
 export default App;

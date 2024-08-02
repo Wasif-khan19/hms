@@ -1,32 +1,32 @@
-import {
-    CircleUser,
-    Menu,
-    Package2,
-    Search
-} from "lucide-react";
+import { CircleUser, Menu, Package2, Search } from "lucide-react";
 
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { hideLoading, showLoading } from "../redux/features/alertSlice";
 import { Button } from "../ui/button";
 import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { Input } from "../ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
-import { useSelector } from "react-redux";
 
 const Navbar = () => {
-  const {user} = useSelector(state => state.user)
-  const navigate = useNavigate()
+  const { user } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const handleLogout = () =>{
-    localStorage.clear()
-    navigate('/login')
-  }
+  const handleLogout = async () => {
+    dispatch(showLoading());
+    localStorage.clear();
+    await navigate("/login");
+    dispatch(hideLoading());
+  };
+  
   return (
     <div className="sticky top-0 z-50 bg-background">
       <header className="flex h-14 items-center gap-4 border-b px-4 md:px-6">
@@ -34,7 +34,7 @@ const Navbar = () => {
           <Link
             href="#"
             className="text-foreground transition-colors hover:text-foreground"
-          > 
+          >
             Dashboard
           </Link>
           <Link
@@ -123,6 +123,7 @@ const Navbar = () => {
               />
             </div>
           </form>
+         
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="secondary" size="icon" className="rounded-full">
@@ -131,16 +132,20 @@ const Navbar = () => {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuLabel className='text-center'>My Account</DropdownMenuLabel>
+              <DropdownMenuLabel className="text-center">
+                My Account
+              </DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <Link to='/profile'>
-              <DropdownMenuItem>{user?.name}</DropdownMenuItem>
+              <Link to="/profile">
+                <DropdownMenuItem>{user?.name}</DropdownMenuItem>
               </Link>
               <DropdownMenuItem>Settings</DropdownMenuItem>
               <DropdownMenuItem>Support</DropdownMenuItem>
               <DropdownMenuSeparator />
-              <Link to='/login'>
-              <DropdownMenuItem onClick={handleLogout}>Logout</DropdownMenuItem>
+              <Link to="/login">
+                <DropdownMenuItem onClick={handleLogout}>
+                  Logout
+                </DropdownMenuItem>
               </Link>
             </DropdownMenuContent>
           </DropdownMenu>
