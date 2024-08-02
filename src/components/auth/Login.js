@@ -41,7 +41,7 @@ const Login = () => {
         setError("Incorrect password. Please try again.");
       }
     } catch (error) {
-      setError("Invalid credentials. Please check your email and password.");
+      setError("Ex ka number yaad rhta h but login details bhool gaye.");
     } finally {
       setIsLoading(false);
     }

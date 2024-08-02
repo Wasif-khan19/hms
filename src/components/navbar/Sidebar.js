@@ -36,7 +36,7 @@ const Sidebar = () => {
                 <TooltipTrigger asChild>
                   <Link
                     to={menu.path}
-                    className={`flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8 ${
+                    className={`flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-blue-500 md:h-8 md:w-8 ${
                       isActive ?"bg-white text-black":"text-foreground"
                     }`}
                   >
