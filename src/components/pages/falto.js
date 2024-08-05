@@ -1,16 +1,9 @@
+/* eslint-disable jsx-a11y/img-redundant-alt */
 
 
-
-
-
-
-
-const Falto =()=> {
+const Falto = () => {
   return (
-   <div>
-    <h1>Muhammad</h1>
-   </div>
-  )
-}
-
-export default Falto
+   <></>
+  );
+};
+export default Falto;

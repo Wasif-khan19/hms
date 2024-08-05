@@ -41,7 +41,7 @@ const Login = () => {
         setError("Incorrect password. Please try again.");
       }
     } catch (error) {
-      setError("Ex ka number yaad rhta h but login details bhool gaye.");
+      setError("Abay tu thora sa bhn ka lauda h kiya");
     } finally {
       setIsLoading(false);
     }
