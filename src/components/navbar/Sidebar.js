@@ -1,3 +1,4 @@
+import React from "react";
 import { Bell, Package2 } from "lucide-react";
 import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
@@ -9,10 +10,9 @@ import {
   TooltipTrigger,
 } from "../ui/tooltip";
 
-const Sidebar = () => {
+const Sidebar = ({ children }) => {
   const { user } = useSelector((state) => state.user);
   const location = useLocation();
-
   const SidebarMenu = user?.isAdmin ? adminMenu : userMenu;
 
   return (
@@ -29,7 +29,6 @@ const Sidebar = () => {
           {SidebarMenu.map((menu) => {
             const isActive = location.pathname === menu.path;
             const IconComponent = menu.icon;
-
             return (
               <Tooltip key={menu.path}>
                 <TooltipTrigger asChild>
@@ -53,17 +52,19 @@ const Sidebar = () => {
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
-              <Link
-                href="#"
-                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
-              >
-                <Bell className="h-5 w-5" />
-                <span className="sr-only">Notification</span>
-              </Link>
+              <div className="relative">
+                <Bell className="h-6 w-6" />
+                {user && user.notification > 0 && (
+                  <span className="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full">
+                    {user.notification}
+                  </span>
+                )}
+              </div>
             </TooltipTrigger>
-            <TooltipContent side="right">Notification</TooltipContent>
+            <TooltipContent side="right">Notifications</TooltipContent>
           </Tooltip>
         </TooltipProvider>
+        <div>{children}</div>
       </nav>
     </aside>
   );
