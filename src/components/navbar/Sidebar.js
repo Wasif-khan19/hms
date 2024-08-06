@@ -1,4 +1,4 @@
-import { Package2 } from "lucide-react";
+import { Bell, Package2 } from "lucide-react";
 import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { adminMenu, userMenu } from "../data/data";
@@ -29,7 +29,6 @@ const Sidebar = () => {
           {SidebarMenu.map((menu) => {
             const isActive = location.pathname === menu.path;
             const IconComponent = menu.icon;
-           
 
             return (
               <Tooltip key={menu.path}>
@@ -37,10 +36,10 @@ const Sidebar = () => {
                   <Link
                     to={menu.path}
                     className={`flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-blue-500 md:h-8 md:w-8 ${
-                      isActive ?"bg-white text-black":"text-foreground"
+                      isActive ? "bg-white text-black" : "text-foreground"
                     }`}
                   >
-                     <IconComponent className="h-5 w-5" />
+                    <IconComponent className="h-5 w-5" />
                     <span className="sr-only">{menu.name}</span>
                   </Link>
                 </TooltipTrigger>
@@ -48,6 +47,22 @@ const Sidebar = () => {
               </Tooltip>
             );
           })}
+        </TooltipProvider>
+      </nav>
+      <nav className="mt-auto flex flex-col items-center gap-4 px-2 sm:py-5">
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Link
+                href="#"
+                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
+              >
+                <Bell className="h-5 w-5" />
+                <span className="sr-only">Notification</span>
+              </Link>
+            </TooltipTrigger>
+            <TooltipContent side="right">Notification</TooltipContent>
+          </Tooltip>
         </TooltipProvider>
       </nav>
     </aside>

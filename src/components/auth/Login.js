@@ -32,11 +32,11 @@ const Login = () => {
           password,
         }
       );
+      window.location.reload();
 
       if (response.data.success) {
         localStorage.setItem("token", response.data.authToken);
         navigate("/");
-        window.location.reload();
       } else {
         setError("Incorrect password. Please try again.");
       }
