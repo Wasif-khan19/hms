@@ -204,6 +204,8 @@ const Notification = () => {
                 </CardContent>
               </Card>
             </TabsContent>
+
+            
           </Tabs>
         </main>
       </div>

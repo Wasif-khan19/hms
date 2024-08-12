@@ -15,6 +15,8 @@ import axios from "axios";
 import Sidebar from "../navbar/Sidebar";
 import Navbar from "../navbar/Navbar";
 import { updateNotifications } from "../redux/features/userSlice";
+
+
 const ApplyDoctor = () => {
   const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
