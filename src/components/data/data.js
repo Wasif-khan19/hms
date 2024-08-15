@@ -6,6 +6,8 @@ import {
   UsersRound
 } from "lucide-react";
 
+
+// side bar menu icns for doctors and users
 export const userMenu = [
   {
     name: "Home",
@@ -42,6 +44,8 @@ export const adminMenu = [
   },
 ];
 
+
+// for dashboard user and doctor counting
 export const adminDashboard = [
   {
     name: "Home",

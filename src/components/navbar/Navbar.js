@@ -115,22 +115,21 @@ const Navbar = () => {
           <form className="ml-auto flex-1 sm:flex-initial"></form>
 
           <DropdownMenu>
-         
             <DropdownMenuTrigger asChild>
               <Button variant="secondary" size="icon" className="rounded-full">
                 <CircleUser className="h-5 w-5" />
                 <span className="sr-only">Toggle user menu</span>
               </Button>
             </DropdownMenuTrigger>
-            
+
             <DropdownMenuContent align="end">
               <DropdownMenuLabel className="text-center">
                 My Account
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <Link to="/profile">
+           
                 <DropdownMenuItem>{user?.name}</DropdownMenuItem>
-              </Link>
+           
               <DropdownMenuItem>Settings</DropdownMenuItem>
               <DropdownMenuItem>Support</DropdownMenuItem>
               <DropdownMenuSeparator />

@@ -1,4 +1,4 @@
-import { Bell, Package2 } from "lucide-react";
+import { Bell, ClipboardPlus, House, Package2, User } from "lucide-react";
 import { useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { adminMenu, userMenu } from "../data/data";
@@ -11,9 +11,30 @@ import {
 
 const Sidebar = () => {
   const { user } = useSelector((state) => state.user);
+  console.log(user);
+  
+
+  const doctorMenu = [
+    {
+      name: "Home",
+      path: "/",
+      icon: House,
+    },
+    {
+      name: "Appointments",
+      path: "/appointments",
+      icon: ClipboardPlus,
+    },
+    {
+      name: "Profile",
+      path: `/doctor/profile/${user?._id}`,
+      icon: User,
+    },
+  ];
+
   const location = useLocation();
   const navigate = useNavigate()
-  const SidebarMenu = user?.isAdmin ? adminMenu : userMenu;
+  const SidebarMenu = user?.isAdmin ? adminMenu : user?.isDoctor ? doctorMenu : userMenu;
 
   return (
     <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex">

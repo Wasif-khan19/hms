@@ -173,7 +173,7 @@ const Doctor = () => {
                                     <div className="flex flex-row justify-center items-center">
                                       <button
                                         onClick={() =>
-                                          handleApprove(doctor, "Approved")
+                                          handleApprove(doctor, "approved")
                                         }
                                         className="text-sm px-4 pt-1 text-center"
                                       >
