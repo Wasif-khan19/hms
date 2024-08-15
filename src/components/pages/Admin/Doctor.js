@@ -1,5 +1,10 @@
-import { MoreHorizontal } from "lucide-react";
-
+import axios from "axios";
+import { Ban, Check, MoreHorizontal, SquareCheck } from "lucide-react";
+import { useEffect, useState } from "react";
+import Navbar from "../../navbar/Navbar";
+import Sidebar from "../../navbar/Sidebar";
+import { Badge } from "../../ui/badge";
+import { Button } from "../../ui/button";
 import {
   Card,
   CardContent,
@@ -11,7 +16,6 @@ import {
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "../../ui/dropdown-menu";
@@ -24,12 +28,6 @@ import {
   TableRow,
 } from "../../ui/table";
 import { Tabs, TabsContent } from "../../ui/tabs";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import Sidebar from "../../navbar/Sidebar";
-import Navbar from "../../navbar/Navbar";
-import { Badge } from "../../ui/badge";
-import { Button } from "../../ui/button";
 
 const Doctor = () => {
   const [doctor, setDoctor] = useState([]);
@@ -49,7 +47,7 @@ const Doctor = () => {
         }
       );
 
-      if ((res.status = 200)) {
+      if (res.status === 200) {
         setDoctor(res.data.data);
       } else {
         setError("Failed to load users.");
@@ -58,6 +56,29 @@ const Doctor = () => {
       setError("An error occurred while fetching users.");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleApprove = async (record, status) => {
+    try {
+      const res = await axios.post(
+        "http://192.168.100.24:4000/api/admin/changeAccountStatus",
+        {
+          doctorId: record._id,
+          status: status,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      if (res.data.success) {
+        alert(res.data.message);
+        window.location.reload()
+      }
+    } catch (error) {
+      alert(error);
     }
   };
 
@@ -85,8 +106,10 @@ const Doctor = () => {
             <TabsContent value="all">
               <Card>
                 <CardHeader>
-                  <CardTitle className='text-center text-3xl'>ALL DOCTORS</CardTitle>
-                  <CardDescription className='text-center'>
+                  <CardTitle className="text-center text-3xl">
+                    ALL DOCTORS
+                  </CardTitle>
+                  <CardDescription className="text-center">
                     Manage and view all doctor applications here
                   </CardDescription>
                 </CardHeader>
@@ -103,7 +126,7 @@ const Doctor = () => {
                     <Table>
                       <TableHeader>
                         <TableRow>
-                          <TableHead className="hidden w-[100px] sm:table-cell"></TableHead>
+                          <TableHead className="w-[100px] hidden sm:table-cell"></TableHead>
                           <TableHead>NAME</TableHead>
                           <TableHead>STATUS</TableHead>
                           <TableHead className="hidden md:table-cell">
@@ -121,11 +144,9 @@ const Doctor = () => {
                             </TableCell>
                             <TableCell>
                               <Badge variant="outline">
-                                {doctor.isDoctor === "Pending" ? (
-                                  <button>Approve</button>
-                                ) : (
-                                  <button>Rejected</button>
-                                )}
+                                {doctor.status === "pending"
+                                  ? "Pending Approval"
+                                  : doctor.status}
                               </Badge>
                             </TableCell>
                             <TableCell className="hidden md:table-cell">
@@ -148,8 +169,23 @@ const Doctor = () => {
                                     Actions
                                   </DropdownMenuLabel>
                                   <hr />
-                                  <DropdownMenuItem>Approve</DropdownMenuItem>
-                                  <DropdownMenuItem>Reject</DropdownMenuItem>
+                                  {doctor.status === "pending" ? (
+                                    <div className="flex flex-row justify-center items-center">
+                                      <button
+                                        onClick={() =>
+                                          handleApprove(doctor, "Approved")
+                                        }
+                                        className="text-sm px-4 pt-1 text-center"
+                                      >
+                                        <SquareCheck color="#16a34a" size={23}/>
+                                      </button>
+                                      <button className="text-sm px-4 pt-1 "><Ban color=" #b91c1c" size={23}/></button>
+                                    </div>
+                                  ) : (
+                                    <button disabled className="text-sm px-4">
+                                      No actions available
+                                    </button>
+                                  )}
                                 </DropdownMenuContent>
                               </DropdownMenu>
                             </TableCell>

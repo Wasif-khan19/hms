@@ -1,10 +1,9 @@
 import {
-  Bell,
   BriefcaseMedical,
   ClipboardPlus,
   House,
   Stethoscope,
-  UsersRound,
+  UsersRound
 } from "lucide-react";
 
 export const userMenu = [
@@ -42,3 +41,41 @@ export const adminMenu = [
     icon: UsersRound,
   },
 ];
+
+export const adminDashboard = [
+  {
+    name: "Home",
+    path: "/",
+    icon: House,
+  },
+  {
+    name: "Doctor",
+    path: "/admin/doctor",
+    icon: Stethoscope,
+  },
+  {
+    name: "Users",
+    path: "/admin/user",
+    icon: UsersRound,
+  },
+];
+
+export const userDashboard = [
+  {
+    name: "Home",
+    path: "/",
+    icon: House,
+  },
+  {
+    name: "Doctor",
+    path: "/admin/doctor",
+    icon: Stethoscope,
+  },
+  {
+    name: "Users",
+    path: "/admin/user",
+    icon: UsersRound,
+  },
+];
+
+
