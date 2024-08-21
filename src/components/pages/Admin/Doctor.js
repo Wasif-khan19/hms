@@ -89,7 +89,7 @@ const Doctor = () => {
   // Pagination logic
   const indexOfLastUser = currentPage * usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
-  const currentUsers = doctor.slice(indexOfFirstUser, indexOfLastUser);
+  const  currentUsers = doctor.slice(indexOfFirstUser, indexOfLastUser);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 

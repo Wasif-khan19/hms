@@ -12,6 +12,7 @@ import Publicroute from "./components/routes/Publicroute";
 import Spinner from "./components/ui/Spinner";
 import User from "./components/pages/Admin/User";
 import Profile from "./components/pages/doctor/Profile";
+import Booking from "./components/pages/Booking";
 
 const App = () => {
   const { loading } = useSelector((state) => state.alert);
@@ -33,6 +34,7 @@ const App = () => {
           <Route path="/admin/user" element={<Protectedroutes><User/></Protectedroutes>} />
           <Route path="/admin/doctor" element={<Protectedroutes><Doctor/></Protectedroutes>} />
           <Route path="/doctor/profile/:id" element={<Protectedroutes><Profile/></Protectedroutes>} />
+          <Route path="/doctor/appointments/:doctorId" element={<Protectedroutes><Booking/></Protectedroutes>} />
           
           
         </Routes>

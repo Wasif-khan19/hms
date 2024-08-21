@@ -35,12 +35,12 @@ const Signup = () => {
       );
       dispatch(hideLoading())
       if (response.data.success) {
-        console.log("Working Properly");
+       
         navigate("/login");
       }
     } catch (error) {
       dispatch(hideLoading())
-      console.log({ message: error });
+     alert("yaha error aana chaiye")
     }
   };
 
@@ -58,6 +58,7 @@ const Signup = () => {
             </CardDescription>
           </CardHeader>
           <CardContent>
+        
             <div className="grid gap-4">
               <div className="grid gap-4">
                 <div className="grid gap-2">
