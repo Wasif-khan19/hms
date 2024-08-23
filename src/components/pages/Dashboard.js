@@ -14,8 +14,10 @@ import {
   CardTitle,
 } from "../ui/card";
 import DoctorList from "./DoctorList";
+import { useSelector } from "react-redux";
 
 const Dashboard = () => {
+  const { user } = useSelector((state) => state.user);
   const [doctors, setDoctor] = useState([]);
   const getUserData = async () => {
     try {
@@ -51,16 +53,14 @@ const Dashboard = () => {
           <div className="">
             <Card x-chunk="dashboard-01-chunk-0">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  Total Revenue
+                <CardTitle className=" text-5xl font-bold flex gap-2">
+                  Good Morning, <p className="text-blue-500">{user?.name}</p>
                 </CardTitle>
                 <DollarSign className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">$45,231.89</div>
-                <p className="text-xs text-muted-foreground">
-                  +20.1% from last month
-                </p>
+                <div className=" text-lg mt-3">Book appointment below according your disease</div>
+                
               </CardContent>
             </Card>
            
